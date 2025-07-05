@@ -3,7 +3,8 @@ FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 
 # Copia los archivos de compilacion (Gradle/Maven)
-COPY build.gradle.kts settings.gradle.kts ./
+COPY build.gradle.kts ./
+COPY settings.gradle.kts ./
 COPY src ./src
 
 # Instala dependencias y construye el JAR

@@ -1,28 +1,31 @@
-# Fase de construcción (JDK)
+# Fase de construcción
 FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 
-# 1. Copia los archivos de Gradle
-COPY build.gradle.kts .
-COPY settings.gradle.kts .
+# Copia archivos necesarios
+COPY build.gradle .
+COPY settings.gradle .
+COPY gradlew .
+COPY gradle gradle
+RUN chmod +x gradlew
 
-# 2. Descarga dependencias (caché eficiente)
+# Descarga dependencias
 RUN ./gradlew dependencies --no-daemon
 
-# 3. Copia el código fuente y construye
+# Copia código fuente
 COPY src ./src
+
+# Construye el JAR
 RUN ./gradlew build --no-daemon
 
-# Fase de ejecución (JRE - más liviano)
+# Fase de ejecución
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copia el JAR desde la fase de construcción
+# Copia el jar generado
 COPY --from=builder /app/build/libs/*.jar ./app.jar
 
-# Puerto dinámico para Render
+# Puerto y comando de ejecución
 ENV PORT=8080
 EXPOSE $PORT
-
-# Comando de inicio
 CMD ["java", "-jar", "app.jar"]

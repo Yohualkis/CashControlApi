@@ -30,7 +30,11 @@ class UsuariosController(
         } else {
             val authRequest = AutorizacionResponseDto(
                 token = UUID.randomUUID().toString(),
-                usuario = user
+                usuarioId = user.usuarioId,
+                nombre = user.nombre.lowercase(),
+                email = user.email.lowercase(),
+                fotoPath = user.fotoPath?.lowercase(),
+                fechaRegistro = user.fechaRegistro
             )
             ResponseEntity.ok(authRequest)
         }

@@ -14,4 +14,3 @@ data class Usuarios(
     val fotoPath: String? = "",
     val fechaRegistro: Date = Date(),
 )
-

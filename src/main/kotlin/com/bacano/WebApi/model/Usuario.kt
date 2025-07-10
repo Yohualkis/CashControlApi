@@ -5,7 +5,7 @@ import java.util.*
 
 @Entity
 @Table(name = "usuarios")
-data class Usuarios(
+data class Usuario(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val usuarioId: Long = 0,
     val nombre: String = "",

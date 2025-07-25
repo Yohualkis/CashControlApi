@@ -3,24 +3,32 @@ package com.bacano.WebApi.controllers.usuario
 import com.bacano.WebApi.model.Rol
 import com.bacano.WebApi.model.Usuario
 import com.bacano.WebApi.services.UsuarioService
-import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
-@Tag(name = "Usuarios")
 @RestController
 @RequestMapping("api/usuarios/")
 class UsuarioController(
-    private val usuarioService: UsuarioService
+    private val usuarioService: UsuarioService,
 ) {
+    @PostMapping("login")
+    fun login(@RequestBody loginRequest: UsuarioLoginRequest): UsuarioResponse {
+        return usuarioService.verificarCredenciales(
+            email = loginRequest.email,
+            password = loginRequest.password
+        )
+            ?.toResponse()
+            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email o contraseña incorrectos")
+    }
+
     @PostMapping("register")
     fun crear(@RequestBody userRequest: UsuarioRequest): UsuarioResponse =
         usuarioService.createUser(
             usuario = userRequest.toModel()
         )?.toResponse()
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Este email ya está ocupado")
+            ?: throw ResponseStatusException(HttpStatus.CONFLICT, "Este email ya está ocupado")
 
     @GetMapping
     fun getUsuarios(): List<UsuarioResponse> =

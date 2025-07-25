@@ -61,7 +61,9 @@ class CategoriaService(
             tipoCategoria = tipo,
             usuarioId = usuarioId
         )
-        return categoriasFiltradas.ifEmpty { null }
+        if (categoriasFiltradas.isNotEmpty())
+            return categoriasFiltradas
+        return null
     }
 
     fun deleteCataegoriaById(id: Long): Boolean {

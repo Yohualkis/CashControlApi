@@ -3,8 +3,8 @@ FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 
 # Copia archivos necesarios para el build
-COPY build.gradle .
-COPY settings.gradle .
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
 COPY gradlew .
 COPY gradle gradle
 RUN chmod +x gradlew

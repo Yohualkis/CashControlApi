@@ -5,12 +5,17 @@ import java.util.*
 
 @Entity
 @Table(name = "usuarios")
-data class Usuarios(
+data class Usuario(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val usuarioId: Long = 0,
     val nombre: String = "",
     val email: String = "",
-    val contrasena: String = "",
-    val fotoPath: String? = "",
+    val password: String = "",
+    val fotoPath: String? = null,
     val fechaRegistro: Date = Date(),
+    val rol: Rol = Rol.USER
 )
+
+enum class Rol {
+    USER, ADMIN
+}

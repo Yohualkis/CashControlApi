@@ -15,6 +15,12 @@ class TransaccionService(
 
     fun getTransaccionById(id: Long): Transaccion? = transRepo.findByIdOrNull(id)
 
+    fun getTransaccionPorCategoriaYUsuario(tipoCategoria: String, usuarioId: Long): List<Transaccion>? =
+        transRepo.findByCategoriaTipoCategoriaAndUsuarioUsuarioId(
+            tipoCategoria = tipoCategoria,
+            usuarioId = usuarioId
+        )
+
     fun eliminarTransaccionPorId(id: Long): Boolean {
         val transaccion = getTransaccionById(id)
             ?: return false

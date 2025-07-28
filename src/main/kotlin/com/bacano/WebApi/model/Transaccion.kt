@@ -24,6 +24,6 @@ data class Transaccion(
     val usuario: Usuario? = null,
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "categoriaId")
+    @JoinColumn(name = "categoria_id")
     val categoria: Categoria? = null
 )

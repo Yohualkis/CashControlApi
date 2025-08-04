@@ -29,6 +29,19 @@ class TransaccionController(
             it.toResponse()
         }
 
+    @GetMapping("/{usuarioId}/{tipoCategoria}")
+    fun getTranssacionByUsuarioYCategoria(
+        @PathVariable usuarioId: Long,
+        @PathVariable tipoCategoria: String,
+    ): List<TransaccionResponse> =
+        transService.getTransaccionPorCategoriaYUsuario(
+            tipoCategoria = tipoCategoria,
+            usuarioId = usuarioId
+        )?.map {
+            it.toResponse()
+        }
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Transacciones no encontradas")
+
     @GetMapping("/{transaccionId}")
     fun getTransaccionById(@PathVariable transaccionId: Long): TransaccionResponse =
         transService.getTransaccionById(transaccionId)?.toResponse()
@@ -88,7 +101,6 @@ class TransaccionController(
             usuario = user,
             categoria = categoria,
             monto = this.monto,
-            fechaTransaccion = this.fechaTransaccion,
             usarSugerencia = this.usarSugerencia,
             descripcion = this.descripcion,
         )

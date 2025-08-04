@@ -101,7 +101,6 @@ class TransaccionController(
             usuario = user,
             categoria = categoria,
             monto = this.monto,
-            fechaTransaccion = this.fechaTransaccion,
             usarSugerencia = this.usarSugerencia,
             descripcion = this.descripcion,
         )

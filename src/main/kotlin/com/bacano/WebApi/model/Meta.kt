@@ -9,7 +9,8 @@ data class Meta(
     val metaId: Long = 0,
     val fotoPath: String? = null,
     val descripcion: String = "",
-    val montoMeta: Double = 0.0,
+    val montoObjetivo: Double = 0.0,
+    val estaLograda: Boolean = false,
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "usuario_id")
